@@ -23,6 +23,8 @@ def inicio():
             result = float(number1) * float(number2)
         elif operacao == "divisao":
             result = float(number1) / float(number2)
+        elif operacao == "potencia":
+            result = float(number1) ** float(number2)
     
     return render_template(
         "index.html",
