@@ -1,34 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br"">
+
     <head>
         <meta charset="UTF-8">
         <title>Calculadora-Flask</title>
     </head>
 
     <body>
-        <h1>Calculadora-Flask</h1>
+        <h1>Calculadora</h1>
 
         <form method="POST">
-            
+
             <select name="operacao">
-                
-                <option value="soma" {% if operacao == "soma" %}selected{% endif %}>Soma</option>
-                <option value="subtracao" {% if operacao == "subtracao" %}selected{% endif %}>Subtração</option>
-                <option value="multiplicacao" {% if operacao == "multiplicacao" %}selected{% endif %}>Multiplicação</option>
-                <option value="divisao" {% if operacao == "divisao" %}selected{% endif %}>Divisão</option>
-                <option value="potencia" {% if operacao == "potencia" %}selected{% endif %}>Potência</option>
+
+            <option value="soma" {% if operacao == "soma" %}selected{% endif %}>Soma</option>
+            <option value="subtracao" {% if operacao == "subtracao" %}selected{% endif %}>Subtração</option>
+            <option value="multiplicacao" {% if operacao == "multiplicacao" %}selected{% endif %}>Multiplicação</option>
+            <option value="divisao" {% if operacao == "divisao" %}selected{% endif %}>Divisão</option>
+            <option value="potencia" {% if operacao == "potencia" %}selected{% endif %}>Potência</option>
 
             </select>
 
-                <input type="number" name="number1" value="{{ number1 }}">
-                <input type="number" name="number2" value="{{ number2 }}">
+            <input type="number" name="number1">
+            <input type="number" name="number2">
+            
 
-                <button>Enviar</button>
+            <button type="submit" name="action" value="calcular">Enviar</button>
+
+            <button type="submit" name="action" value="limpar">Apagar histórico</button>
+
         </form>
 
-        <h4>{{ mensagem }}</h4>
+        <h3>{{mensagem_resultado}}</h3>
 
-        <h4> {{ mensagem_resultado }} </h4>
+        {% for item in historico %}
+        <p>{{ item }}</p>
+        {% endfor %}
 
     </body>
 </html>

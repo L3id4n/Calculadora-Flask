@@ -2,53 +2,69 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+historico = []
 
+@app.route("/", methods=["GET", "POST"])
 def inicio():
     
-    number1 = 0
-    number2 = 0
+    global historico
+    
+    number1 = ""
+    number2 = ""
     result = None
     operacao = ""
-    mensagem = ""
     mensagem_resultado = ""
     
     if request.method == "POST":
-        operacao = request.form["operacao"]
-        number1 = request.form["number1"]
-        number2 = request.form["number2"]
         
+        action = request.form["action"]
+        
+        if action == "limpar":
+            historico = []
+        
+        else:
+            operacao = request.form["operacao"]
+            number1 = float(request.form["number1"])
+            number2 = float(request.form["number2"])
+            
         if operacao == "soma":
             result = float(number1) + float(number2)
             mensagem_resultado = f"O resultado da soma é {result}"
+            historico.append(f"{number1} + {number2} = {result}")
         elif operacao == "subtracao":
             result = float(number1) - float(number2)
             mensagem_resultado = f"O resultado da subtração é {result}"
+            historico.append(f"{number1} - {number2} = {result}")
         elif operacao == "multiplicacao":
             result = float(number1) * float(number2)
             mensagem_resultado = f"O resultado da multiplicação é {result}"
+            historico.append(f"{number1} * {number2} = {result}")
         elif operacao == "divisao":
             if float(number2) == 0:
-                mensagem = "Não é possível dividir por zero."
-                mensagem_resultado = ""
+                result = "indefinido"
+                mensagem_resultado = f"Não é possível dividir por 0. Resultado {result}"
+                historico.append(f"{number1} / {number2} = {result}")
             else:
                 result = float(number1) / float(number2)
                 mensagem_resultado = f"O resultado da divisão é {result}"
+                historico.append(f"{number1} / {number2} = {result}")
         elif operacao == "potencia":
             result = float(number1) ** float(number2)
-            mensagem_resultado = f"O resultado da potenciação é {result}"
-            
-        number1 = ""
-        number2 = ""
+            mensagem_resultado = f"O resultado da potência é {result}"
+            historico.append(f"{number1} ^ {number2} = {result}")
+
+    number1 = ""
+    number2 = ""
+        
     
     return render_template(
         "index.html",
         number1=number1,
         number2=number2,
         result=result,
-        mensagem=mensagem,
+        operacao=operacao,
         mensagem_resultado=mensagem_resultado,
-        operacao=operacao
+        historico=historico,
     )
-    
+
 app.run(debug=True)
