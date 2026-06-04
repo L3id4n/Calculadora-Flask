@@ -7,6 +7,7 @@ Uma calculadora web feita com Flask.
 - Subtração
 - Multiplicação
 - Divisão
+- Potenciação
   
 ## Requisitos
 
