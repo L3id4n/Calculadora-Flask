@@ -49,9 +49,14 @@ def inicio():
                 mensagem_resultado = f"O resultado da divisão é {result}"
                 historico.append(f"{number1} / {number2} = {result}")
         elif operacao == "potencia":
-            result = float(number1) ** float(number2)
-            mensagem_resultado = f"O resultado da potência é {result}"
-            historico.append(f"{number1} ^ {number2} = {result}")
+            if float(number1) == 0 and float(number2) == 0:
+                result = "indefinido"
+                mensagem_resultado = f"Não é possivel elevar o 0 por 0!"
+                historico.append(f"{number1} ^ {number2} = {result}")
+            else:
+                result = float(number1) ** float(number2)
+                mensagem_resultado = f"O resultado da potência é {result}"
+                historico.append(f"{number1} ^ {number2} = {result}")
 
     number1 = ""
     number2 = ""
